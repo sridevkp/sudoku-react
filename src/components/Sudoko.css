@@ -1,3 +1,51 @@
-.container{
-    color: blueviolet;
+*{
+    --color1 : rgb(244, 244, 244);
+    --color2 : aliceblue;
+    /* --color2 : rgb(193, 168, 168); */
 }
+.container{
+    max-width: 450px;
+    width: 95%;
+    display: grid;
+    /* grid-template-columns: repeat(9,1fr);
+    grid-template-rows: repeat(9,1fr); */
+    grid: repeat(9,11.11%) / repeat(9,11.11%);
+    position: relative;
+    border: 3px solid var(--color2);
+    border-radius: 5px;
+    /* background-color: white; */
+}
+.background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url(bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
+/* .background::before { 
+    content: ""; 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    background: repeating-linear-gradient( 
+            0deg, var(--color1) 0, var(--color1) 33.33%,  
+            var(--color2) 33.33%, var(--color2) 66.66%,
+            var(--color1) 66.66%, var(--color1) 100%); 
+}  */
+
+/* .background::after { 
+    content: ""; 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    background: repeating-linear-gradient( 
+            90deg, var(--color1) 0, var(--color1) 33.33%,  
+            var(--color2) 33.33%, var(--color2) 66.66%,
+            var(--color1) 66.66%, var(--color1) 100%);  
+    mix-blend-mode: multiply; 
+} */
+
