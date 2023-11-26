@@ -1,0 +1,39 @@
+.options{
+    position: relative;
+    display: flex;
+    gap: auto;
+    width: 90%;
+    max-width: 300px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.option-btn{
+    position: relative;
+    padding: 1rem;
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
+}
+.option-btn:last-child{
+    border-right: none;
+}
+.premium{
+    overflow: hidden;
+}
+.premium::before{
+    content: "";
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    transform: rotate(45deg);
+    width: 30px;
+    height: 30px;
+    background-color:blue;
+}
+.premium::after{
+    content: "*";
+    font-size: large;
+    color: white;
+    transform: translate(0,-20%);
+    top: 2px;
+    right: 2px;
+    position: absolute;
+}

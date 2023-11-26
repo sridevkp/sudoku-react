@@ -1,6 +1,8 @@
 import React from 'react'
 import './Sudoko.css'
 import Square from './Square/Square'
+import Options from './Options/Options'
+import Keyboard from './Keyboard/Keyboard'
 
 class Sudoko extends React.Component{
     data = Array(9*9).fill(null)
@@ -32,8 +34,6 @@ class Sudoko extends React.Component{
             n, n, n,  5, n, n,  n, n, n 
         ]
         this.saved = [...this.data]
-
-        this.solve()
 
         // console.log( this.data )
         // this.data = [...this.saved]
@@ -182,17 +182,8 @@ class Sudoko extends React.Component{
                     }
                     <div className='background'></div>
                 </div>
-                <div className='options'>
-
-                </div>
-                <div className='keyboard'>
-                    {
-                        [...Array(10).keys()].map( (i) => {
-                            
-                        })
-                    }
-                    
-                </div>
+                <Options></Options>
+                <Keyboard></Keyboard>
             </main>
         )
     }
