@@ -1,6 +1,5 @@
 import React from 'react'
 import './Sudoko.css'
-import bg from './bg.png'
 import Square from './Square/Square'
 
 class Sudoko extends React.Component{
@@ -33,21 +32,30 @@ class Sudoko extends React.Component{
             n, n, n,  5, n, n,  n, n, n 
         ]
         this.saved = [...this.data]
-        // this.solve()
-        // this.data = this.saved
+
+        this.solve()
+
+        // console.log( this.data )
+        // this.data = [...this.saved]
         // for( i = 1; i < 10; i++){
         //     const index = Math.floor(Math.random() * 81)
 
         // }
     }
 
-    solve(){
-        for( let i = 0; i < 81; i++ ){
-            if( this.saved[i] != null ) continue 
+    solve( start = 0 ){
+        if( start == 0 ){
+            this.data = [...this.saved]
+        }
+        for( let i = start; i < 81; i++ ){
+            if( this.data[i] != null ){
+                if( i == 80) return true
+                continue
+            }
             for( let n = 1; n < 10; n++ ){
                 if( this.isPossibleAtIndex( i, n )){
                     this.data[i] = n
-                    if( this.solve() ){
+                    if( this.solve( i ) ){
                         return true
                     }else{
                         this.data[i] = null
@@ -102,21 +110,21 @@ class Sudoko extends React.Component{
         return false
     }
 
-    isPossibleAtIndex( index, num ){
+    isPossibleAtIndex( index, num, data = this.data ){
         const { x, y } = this.indexToCord(index)
-        return this.isPossible( x, y, num )
+        return this.isPossible( x, y, num, data )
     }
 
-    isPossible( row, col, num ){ 
+    isPossible( row, col, num, data = this.data ){ 
         for( let i = 0; i < 9; i++ ){//check row
             if( row == i){ continue }
             const index = this.cordToIndex( i, col ) 
-            if( this.data[index] == num ){ return false }
+            if( data[index] == num ){ return false }
         }
         for( let j = 0; j < 9; j++ ){//check column
             if( col == j){ continue }
             const index = this.cordToIndex( row, j ) 
-            if( this.data[index] == num ){ return false }
+            if( data[index] == num ){ return false }
         }
         // check boxes
         const offset = {
@@ -129,7 +137,7 @@ class Sudoko extends React.Component{
                 const y = offset.y + j 
                 if( x == row && y == col){ continue }
                 const index = this.cordToIndex( x, y )
-                if( this.data[index] == num){
+                if( data[index] == num){
                     return false
                 }
 
@@ -156,23 +164,36 @@ class Sudoko extends React.Component{
 
     render(){
         return (
-            <div className='container' >
-                {
-                    [...this.data.keys()].map( (i) =>{ 
-                        return <Square
-                                    key = {i}
-                                    index = {i}
-                                    fixed = { this.saved[i] != null }
-                                    parent = {this}
-                                    _val = { this.data[i] == null ? "" : this.data[i] }
-                                    invalid = { this.state.invalidSquares.includes(i) }
-                                    inFocus = { this.state.focused.includes(i)}
-                                    inRange = { this.state.range.includes(i) }
-                                ></Square>
+            <main>
+                <div className='container' >
+                    {
+                        [...this.data.keys()].map( (i) =>{ 
+                            return <Square
+                                        key = {i}
+                                        index = {i}
+                                        fixed = { this.saved[i] != null }
+                                        parent = {this}
+                                        _val = { this.data[i] }
+                                        invalid = { this.state.invalidSquares.includes(i) }
+                                        inFocus = { this.state.focused.includes(i)}
+                                        inRange = { this.state.range.includes(i) }
+                                    ></Square>
+                            })
+                    }
+                    <div className='background'></div>
+                </div>
+                <div className='options'>
+
+                </div>
+                <div className='keyboard'>
+                    {
+                        [...Array(10).keys()].map( (i) => {
+                            
                         })
-                }
-                <div className='background'></div>
-            </div>
+                    }
+                    
+                </div>
+            </main>
         )
     }
     

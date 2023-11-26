@@ -3,24 +3,16 @@
     padding: 0 0;
     color: blue;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     aspect-ratio: 1;
     border-radius: 3px;
     text-align: center;
-    transition: all .2s;
+    transition: all .1s;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: transparent;
 }
 .sudoko-square.fixed{
-    font-weight: 600;
     color: black;
-}
-.sudoko-square:focus{
-    /* outline: none; */
-    /* box-shadow: inset 3px 3px 3px #999 , inset -3px -3px 3px #eee; */
-}
-.sudoko-square.warn{
-    background-color:rgb(255, 161, 161);
 }
 .sudoko-square.check{
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -31,4 +23,7 @@
 .sudoko-square.focused{
     color:rgb(194, 194, 194);
     background-color: rgb(72, 72, 72);
+}
+.sudoko-square.warn:not(.fixed){
+    color: red;
 }

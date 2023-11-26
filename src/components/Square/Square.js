@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './Square.css'
 
 const Square = ({ index, fixed, parent, _val, invalid, inFocus, inRange }) => {
-    const [ val, setVal ] = useState( _val )
+    const [ val, setVal ] = useState( _val == null ? "" : _val )
     
     return (<input 
                 className={"sudoko-square"+(fixed ? " fixed": "")+(invalid ? " warn" : "")+(inFocus ? " focused" : "")+(inRange ? " check" : "")} 
