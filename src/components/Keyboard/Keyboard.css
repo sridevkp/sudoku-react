@@ -6,13 +6,23 @@
 }
 .keyboard button{
     flex: 1;
-    padding: .5rem 0;
+    padding: .8rem 0;
     border: none;
     border-right: 2px solid rgba(100, 148, 237, 0.2);
     background-color: transparent;
     color:cornflowerblue;
     font-weight: 600;
     font-size: larger;
+    position: relative;
+}
+.left{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    color: rgba(100, 148, 237, 0.5);
+    font-weight: normal;
+    font-size: 13px;
 }
 .keyboard button:last-child{
     border-right: none;

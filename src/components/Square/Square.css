@@ -1,18 +1,31 @@
+:root{
+    --good : blue;
+    --bad  : red ;
+    --neutral:black;
+}
+.container-square{
+    aspect-ratio: 1;
+    position: relative;
+    transition: 1s all;
+}
 .sudoko-square{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
     cursor: default;
-    padding: 0 0;
-    color: blue;
+    padding: 0;
+    color: var(--good);
     font-size: 20px;
     font-weight: 600;
-    aspect-ratio: 1;
     border-radius: 3px;
     text-align: center;
     transition: all .1s;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: transparent;
+    position: relative;
 }
 .sudoko-square.fixed{
-    color: black;
+    color: var(--neutral);
 }
 .sudoko-square.check{
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -20,10 +33,43 @@
 .sudoko-square:focus.check{
     border: none;
 }
-.sudoko-square.focused{
+.sudoko-square.highlight{
     color:rgb(194, 194, 194);
     background-color: rgb(72, 72, 72);
 }
+.sudoko-square.highlight:not(.fixed){
+    color:var(--good)
+}
 .sudoko-square.warn:not(.fixed){
-    color: red;
+    color: var(--bad);
+}
+
+.pencil{
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid: repeat(3,33.33%) / repeat(3,33.33%);
+    color: grey;
+}
+.pencil span{
+    text-align: center;
+    font-size: x-small;
+}
+.revealed{
+    /* transform: rotateX(180deg) rotateY(-180deg); */
+    animation: rotate 1s ;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate3d(180deg,180deg,0deg);
+    }
 }

@@ -1,24 +1,39 @@
 import { useState } from 'react'
 import './Square.css'
+import useCheckMobileScreen from '../../hooks/useCheckMobileScreen.js'
 
-const Square = ({ index, fixed, parent, _val, invalid, inFocus, inRange }) => {
-    const [ val, setVal ] = useState( _val == null ? "" : _val )
-    
-    return (<input 
-                className={"sudoko-square"+(fixed ? " fixed": "")+(invalid ? " warn" : "")+(inFocus ? " focused" : "")+(inRange ? " check" : "")} 
-                value={val} 
+const Square = ({ index, fixed, handleChange, _val, invalid, highlight, inRange, onFocus }) => {
+    var mobileDevice = useCheckMobileScreen()
+    const [ marked, setMarked ] = useState([])
+
+    return (
+        <span className='container-square revealed'>
+            <input
+                className={"sudoko-square"+(fixed ? " fixed": "")+(invalid ? " warn" : "")+(highlight ? " highlight" : "")+(inRange ? " check" : "")} 
+                value={ !_val ? "" : _val} 
                 type='number' 
                 min={1} max={9} step={1}
                 onFocus={ e => { 
+                    e.preventDefault()
                     if( !fixed ){e.target.select()} 
-                    parent.focus( index, val)
+                    onFocus( index, e.target.value )
                 }}
                 onChange={ e => { 
-                    setVal( e.target.value )
-                    parent.handleChange( index, e.target.value )
-                 } }
-                readOnly = {fixed}
-            ></input>)
+                    handleChange( index, e.target.value )
+                } }
+                readOnly= {fixed || mobileDevice }
+            ></input>
+            { _val === null && <div className='pencil'>
+                {
+                    [...Array(9).keys()].map( i => {
+                        const val = i + 1
+                        return  <span key={i} style={{ opacity:(marked.includes(val) ? 1 : 0) }} >{ val }</span>
+                    })
+                }
+            </div>}
+        </span>
+            )
+            
 }
 
 export default Square
